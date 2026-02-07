@@ -1,23 +1,26 @@
 find_package(Threads REQUIRED)
 
-FetchContent_Declare(extern.essentials
-  URL https://github.com/jermp/essentials/archive/54bd98b.tar.gz
-  URL_MD5 dd629e723c2a36a7ff2c317967112e23
+FetchContent_Declare(vault.pthash.essentials
+  URL https://github.com/chayden83/jermp.essentials/archive/22c1b51.tar.gz
+  URL_MD5 ea55d4d45139cb12e4fc1e95b018b468
 )
 
-FetchContent_Declare(extern.bits
-  URL https://github.com/jermp/bits/archive/7464dc7.tar.gz
-  URL_MD5 7c3d22e66f05a3241cf24831cd27438a
+FetchContent_Declare(vault.pthash.mm_file
+  URL https://github.com/chayden83/jermp.mm_file/archive/555f44c.tar.gz
+  URL_MD5 09244a53cb6fd9870cceaaf3cec2a8a3
+)
+
+FetchContent_Declare(vault.pthash.bits
+  URL https://github.com/chayden83/jermp.bits/archive/4c68f82.tar.gz
+  URL_MD5 165629a722b58284fd8ca6e58b5622a8
 )
 
 # FetchContent_Declare(extern.xxhash
 # )
 
-# FetchContent_Declare(extern.mm_file
-# )
-
-FetchContent_MakeAvailable(extern.essentials)
-FetchContent_MakeAvailable(extern.bits)
+FetchContent_MakeAvailable(vault.pthash.essentials)
+FetchContent_MakeAvailable(vault.pthash.mm_file)
+FetchContent_MakeAvailable(vault.pthash.bits)
 
 vault_add_header_only_library(vault.pthash)
 
@@ -43,6 +46,9 @@ target_sources(vault.pthash PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_D
 
 target_link_libraries(vault.pthash INTERFACE
   Threads::Threads
+  vault::pthash.essentials
+  vault::pthash.mm_file
+  vault::pthash.bits
 )
 
 vault_install_targets(
