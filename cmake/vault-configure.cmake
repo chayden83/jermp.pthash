@@ -18,6 +18,8 @@ block(PROPAGATE VAULT_SHORT_NAME VAULT_SHORT_NAME_UPPER)
     # These variables *cannot* be cache variables because we need them
     # to vary based the project that's including this file.
     set(VAULT_SHORT_NAME ${CMAKE_MATCH_1})
+    
+    string(MAKE_C_IDENTIFIER "${VAULT_SHORT_NAME}" VAULT_SHORT_NAME)
     string(TOUPPER ${VAULT_SHORT_NAME} VAULT_SHORT_NAME_UPPER)
 endblock()
 
