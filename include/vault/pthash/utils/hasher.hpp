@@ -2,6 +2,10 @@
 
 #include <xxh3.h>
 
+#include <string>
+#include <cstdint>
+#include <stdexcept>
+
 namespace pthash {
 
 namespace util {

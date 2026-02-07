@@ -15,12 +15,15 @@ FetchContent_Declare(vault.pthash.bits
   URL_MD5 165629a722b58284fd8ca6e58b5622a8
 )
 
-# FetchContent_Declare(extern.xxhash
+# FetchContent_Declare(xxhash
+#   URL https://github.com/Cyan4973/xxHash/archive/refs/tags/v0.8.3.tar.gz
+#   URL_MD5 599804eb9555e51c05f1b821f9212a07
 # )
 
 FetchContent_MakeAvailable(vault.pthash.essentials)
 FetchContent_MakeAvailable(vault.pthash.mm_file)
 FetchContent_MakeAvailable(vault.pthash.bits)
+#FetchContent_MakeAvailable(xxhash)
 
 vault_add_header_only_library(vault.pthash)
 
