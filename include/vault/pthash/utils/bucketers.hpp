@@ -1,8 +1,8 @@
 #pragma once
 
-#include "util.hpp"
+#include <algorithm>
 
-// #include <cmath>  // for log
+#include "util.hpp"
 
 namespace pthash {
 
@@ -10,7 +10,7 @@ struct opt_bucketer {
     opt_bucketer() : m_num_buckets(0) {}
 
     void init(const uint64_t num_buckets) {
-        m_num_buckets = num_buckets;
+        m_num_buckets = std::min(num_buckets, 64uLL);
     }
 
     inline uint64_t bucket(uint64_t hash) const {
