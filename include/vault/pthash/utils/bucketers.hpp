@@ -10,7 +10,7 @@ struct opt_bucketer {
     opt_bucketer() : m_num_buckets(0) {}
 
     void init(const uint64_t num_buckets) {
-        m_num_buckets = std::min(num_buckets, 64uL);
+        m_num_buckets = std::min(num_buckets, 64uLL);
     }
 
     inline uint64_t bucket(uint64_t hash) const {
