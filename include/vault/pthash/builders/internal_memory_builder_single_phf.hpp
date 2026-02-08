@@ -74,9 +74,13 @@ struct internal_memory_builder_single_phf {
 	
         assert(table_size >= num_keys);
 
-        const uint64_t num_buckets = (config.num_buckets == constants::invalid_num_buckets)
-                                         ? compute_num_buckets(num_keys, config.lambda)
-                                         : config.num_buckets;
+        uint64_t num_buckets = (config.num_buckets == constants::invalid_num_buckets)
+	  ? compute_num_buckets(num_keys, config.lambda)
+	  : config.num_buckets;
+
+	if(num_buckets < 64) {
+	  num_buckets = 64;
+	}
 
         m_seed = config.seed;
         m_num_keys = num_keys;
@@ -209,9 +213,13 @@ struct internal_memory_builder_single_phf {
     static uint64_t estimate_num_bytes_for_construction(const uint64_t num_keys,
                                                         build_configuration const& config) {
         uint64_t table_size = static_cast<double>(num_keys) / config.alpha;
-        const uint64_t num_buckets = (config.num_buckets == constants::invalid_num_buckets)
-                                         ? compute_num_buckets(num_keys, config.lambda)
-                                         : config.num_buckets;
+        uint64_t num_buckets = (config.num_buckets == constants::invalid_num_buckets)
+	  ? compute_num_buckets(num_keys, config.lambda)
+	  : config.num_buckets;
+
+	if(num_buckets < 64) {
+	  num_buckets = 64;
+	}
 
         uint64_t num_bytes_for_map = num_keys * sizeof(bucket_payload_pair)          // pairs
                                      + (num_keys + num_buckets) * sizeof(uint64_t);  // buckets
