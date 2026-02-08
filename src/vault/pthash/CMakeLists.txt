@@ -6,13 +6,13 @@ FetchContent_Declare(vault.pthash.essentials
 )
 
 FetchContent_Declare(vault.pthash.mm_file
-  URL https://github.com/chayden83/jermp.mm_file/archive/555f44c.tar.gz
-  URL_MD5 09244a53cb6fd9870cceaaf3cec2a8a3
+  URL https://github.com/chayden83/jermp.mm_file/archive/6f406d6.tar.gz
+  URL_MD5 dedd408d2fd6ec554c9072d3fca0e16c
 )
 
 FetchContent_Declare(vault.pthash.bits
-  URL https://github.com/chayden83/jermp.bits/archive/4c68f82.tar.gz
-  URL_MD5 165629a722b58284fd8ca6e58b5622a8
+  URL https://github.com/chayden83/jermp.bits/archive/e52452d.tar.gz
+  URL_MD5 6117a1dcaa3f373f05c539a93d71aa4d
 )
 
 FetchContent_MakeAvailable(vault.pthash.essentials)

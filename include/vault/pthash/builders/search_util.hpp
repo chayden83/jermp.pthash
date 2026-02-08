@@ -5,6 +5,7 @@
 #include <sstream> // for std::stringbuf
 #include <iomanip>
 
+#include <vault/pthash/utils/hasher.hpp>
 #include <vault/pthash/essentials/essentials.hpp>
 
 namespace pthash {
