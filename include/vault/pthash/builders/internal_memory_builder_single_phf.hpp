@@ -63,7 +63,13 @@ struct internal_memory_builder_single_phf {
         build_timings time;
 
         uint64_t table_size = static_cast<double>(num_keys) / config.alpha;
-        if (config.table_size != constants::invalid_table_size) table_size = config.table_size;
+	
+        if (config.table_size != constants::invalid_table_size) {
+	  table_size = config.table_size;
+	} else if(table_size < 64) {
+	  table_size = 64;
+	}
+	
         assert(table_size >= num_keys);
 
         const uint64_t num_buckets = (config.num_buckets == constants::invalid_num_buckets)
