@@ -66,9 +66,7 @@ struct internal_memory_builder_single_phf {
 	
         if (config.table_size != constants::invalid_table_size) {
 	  table_size = config.table_size;
-	}
-
-	if(table_size < 64) {
+	} else if(table_size < 64) {
 	  table_size = 64;
 	}
 	
