@@ -1,6 +1,6 @@
 #pragma once
 
-#include "utils/util.hpp"
+#include "util.hpp"
 
 // #include <cmath>  // for log
 

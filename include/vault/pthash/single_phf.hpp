@@ -1,9 +1,12 @@
 #pragma once
 
-#include "utils/bucketers.hpp"
+#include <vault/pthash/bits/elias_fano.hpp>
+
 #include "builders/util.hpp"
 #include "builders/internal_memory_builder_single_phf.hpp"
 #include "builders/external_memory_builder_single_phf.hpp"
+
+#include "utils/dense_encoders.hpp"
 
 namespace pthash {
 

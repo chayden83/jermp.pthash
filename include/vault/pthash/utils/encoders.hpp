@@ -1,13 +1,14 @@
 #pragma once
 
 #include "util.hpp"
-#include "compact_vector.hpp"
-#include "elias_fano.hpp"
-#include "ranked_sequence.hpp"
-#include "rice_sequence.hpp"
 
 #include <vector>
 #include <cassert>
+
+#include <vault/pthash/bits/elias_fano.hpp>
+#include <vault/pthash/bits/rice_sequence.hpp>
+#include <vault/pthash/bits/compact_vector.hpp>
+#include <vault/pthash/bits/ranked_sequence.hpp>
 
 namespace pthash {
 

@@ -1,8 +1,11 @@
 #pragma once
 
 #include <array>
-#include <sstream>  // for std::stringbuf
-#include <iomanip>  // for std::setprecision
+#include <cstdint>
+#include <sstream> // for std::stringbuf
+#include <iomanip>
+
+#include <vault/pthash/essentials/essentials.hpp>
 
 namespace pthash {
 

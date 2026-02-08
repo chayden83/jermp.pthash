@@ -1,13 +1,16 @@
 #pragma once
 
-#include <atomic>  // for std::atomic
+#include <atomic> // for std::atomic
+#include <thread>
 #include <vector>
 
-#include "bit_vector.hpp"
-#include "utils/hasher.hpp"
-#include "search_util.hpp"
-#include "essentials.hpp"
+#include <vault/pthash/bits/bit_vector.hpp>
+#include <vault/pthash/essentials/essentials.hpp>
+
 #include "util.hpp"
+#include "search_util.hpp"
+
+#include "../utils/hasher.hpp"
 
 namespace pthash {
 

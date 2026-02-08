@@ -1,11 +1,12 @@
 #pragma once
 
-#include <fstream>
-#include <thread>
-#include <cmath>  // log, sqrt
+#include <cmath> // log, sqrt
+#include <unordered_map>
 
-#include "utils/logger.hpp"
-#include "utils/util.hpp"
+#include "../utils/util.hpp"
+#include "../utils/logger.hpp"
+
+#include "vault/pthash/utils/util.hpp"
 
 namespace pthash {
 
@@ -378,7 +379,7 @@ private:
     uint64_t m_seed;
 };
 
-double compute_empirical_entropy(std::vector<uint64_t> const& values) {
+inline double compute_empirical_entropy(std::vector<uint64_t> const& values) {
     if (values.empty()) return 0.0;
     std::unordered_map<uint64_t, uint64_t> frequency_map;
     // uint64_t large_values = 0;

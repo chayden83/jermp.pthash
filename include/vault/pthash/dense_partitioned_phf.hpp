@@ -1,5 +1,6 @@
 #pragma once
 
+#include "utils/dense_encoders.hpp"
 #include "builders/internal_memory_builder_partitioned_phf.hpp"
 
 namespace pthash {

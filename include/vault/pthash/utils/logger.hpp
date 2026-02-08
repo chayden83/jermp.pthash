@@ -1,7 +1,9 @@
 #pragma once
 
-#include <ostream>
 #include <string>
+#include <cassert>
+#include <cstdint>
+#include <iostream>
 
 namespace pthash {
 

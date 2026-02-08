@@ -1,9 +1,10 @@
 #pragma once
 
-#include "builders/util.hpp"
-#include "mm_file/mm_file.hpp"
-#include "builders/internal_memory_builder_single_phf.hpp"
-#include "builders/internal_memory_builder_partitioned_phf.hpp"
+#include "util.hpp"
+#include "internal_memory_builder_single_phf.hpp"
+#include "internal_memory_builder_partitioned_phf.hpp"
+
+#include <vault/pthash/mm_file/mm_file.hpp>
 
 namespace pthash {
 
