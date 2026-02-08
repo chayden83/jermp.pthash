@@ -74,8 +74,6 @@ struct skew_bucketer {
     skew_bucketer() : m_num_dense_buckets(0), m_num_sparse_buckets(0) {}
 
     void init(const uint64_t num_buckets) {
-        num_buckets = std::min(num_buckets, 64uL);
-
         m_num_dense_buckets = constants::b * num_buckets;
         m_num_sparse_buckets = num_buckets - m_num_dense_buckets;
     }
@@ -124,8 +122,6 @@ struct range_bucketer {
     range_bucketer() : m_num_buckets(0) {}
 
     void init(const uint64_t num_buckets) {
-        num_buckets = std::min(num_buckets, 64uL);
-	
         if (num_buckets > (1ULL << 32)) throw std::runtime_error("too many buckets");
         m_num_buckets = num_buckets;
     }
