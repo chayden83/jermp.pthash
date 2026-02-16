@@ -5,18 +5,12 @@ FetchContent_Declare(vault.pthash.essentials
   URL_MD5 ea55d4d45139cb12e4fc1e95b018b468
 )
 
-FetchContent_Declare(vault.pthash.mm_file
-  URL https://github.com/chayden83/jermp.mm_file/archive/6f406d6.tar.gz
-  URL_MD5 dedd408d2fd6ec554c9072d3fca0e16c
-)
-
 FetchContent_Declare(vault.pthash.bits
   URL https://github.com/chayden83/jermp.bits/archive/e52452d.tar.gz
   URL_MD5 6117a1dcaa3f373f05c539a93d71aa4d
 )
 
 FetchContent_MakeAvailable(vault.pthash.essentials)
-FetchContent_MakeAvailable(vault.pthash.mm_file)
 FetchContent_MakeAvailable(vault.pthash.bits)
 
 vault_add_header_only_library(vault.pthash)
@@ -39,12 +33,12 @@ target_sources(vault.pthash PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_D
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/single_phf.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/dense_partitioned_phf.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/partitioned_phf.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/mm_file/mm_file.hpp
 )
 
 target_link_libraries(vault.pthash INTERFACE
   Threads::Threads
   vault::pthash.essentials
-  vault::pthash.mm_file
   vault::pthash.bits
 )
 
