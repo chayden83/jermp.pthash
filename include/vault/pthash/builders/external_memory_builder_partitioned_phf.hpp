@@ -29,11 +29,6 @@ struct external_memory_builder_partitioned_phf {
         auto start = clock_type::now();
 
         build_timings timings;
-        if (config.verbose) {
-            std::cout << "num_partitions " << num_partitions << std::endl;
-            std::cout << "using " << static_cast<double>(config.ram) / 1'000'000'000 << " GB of RAM"
-                      << std::endl;
-        }
 
         m_seed = config.seed == constants::invalid_seed ? random_value() : config.seed;
         m_num_keys = num_keys;
@@ -110,10 +105,6 @@ struct external_memory_builder_partitioned_phf {
             uint64_t i = 0;
 
             auto build_partitions = [&]() {
-                if (config.verbose) {
-                    std::cout << "processing " << in_memory_partitions.size() << "/"
-                              << num_partitions << " partitions..." << std::endl;
-                }
                 std::vector<internal_memory_builder_single_phf<hasher_type, Bucketer>>
                     in_memory_builders(in_memory_partitions.size());
                 uint64_t id = i - in_memory_partitions.size();
@@ -126,8 +117,6 @@ struct external_memory_builder_partitioned_phf {
                 timings.searching_microseconds += t.searching_microseconds;
                 in_memory_partitions.clear();
                 bytes = num_partitions * sizeof(meta_partition);
-
-                if (config.verbose) std::cout << "writing builders to disk..." << std::endl;
 
                 start = clock_type::now();
                 for (auto& builder : in_memory_builders) {
@@ -166,10 +155,6 @@ struct external_memory_builder_partitioned_phf {
         } else {  // sequential
             internal_memory_builder_single_phf<hasher_type, Bucketer> b;
             for (uint64_t i = 0; i != num_partitions; ++i) {
-                if (config.verbose) {
-                    std::cout << "processing partition " << i << "/" << num_partitions
-                              << " partitions..." << std::endl;
-                }
                 mm::file_source<hash_type> partition(partitions[i].filename(),
                                                      mm::advice::sequential);
                 auto t = b.build_from_hashes(partition.data(), partition.size(), partition_config);

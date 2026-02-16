@@ -41,8 +41,6 @@ struct search_logger {
         m_step = bucket - m_bucket;
         print(bucket);
         essentials::logger("search ends");
-        std::cout << " == " << m_num_buckets - bucket << " empty buckets ("
-                  << ((m_num_buckets - bucket) * 100.0) / m_num_buckets << "%)" << std::endl;
     }
 
     uint64_t num_pilots;

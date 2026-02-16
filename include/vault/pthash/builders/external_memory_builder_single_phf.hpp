@@ -5,7 +5,6 @@
 #include "util.hpp"
 #include "search.hpp"
 #include "../utils/bucketers.hpp"
-#include "../utils/logger.hpp"
 #include "../utils/hasher.hpp"
 
 namespace pthash {
@@ -75,16 +74,6 @@ struct external_memory_builder_single_phf {
             constexpr uint64_t GB = 1'000'000'000;
             uint64_t peak = num_keys * (sizeof(bucket_payload_pair) + sizeof(uint64_t)) +
                             (num_keys + num_buckets) * sizeof(uint64_t);
-            std::cout << "lambda (avg. bucket size) = " << config.lambda << std::endl;
-            std::cout << "alpha = " << config.alpha << std::endl;
-            std::cout << "num_keys = " << num_keys << std::endl;
-            std::cout << "table_size = " << table_size << std::endl;
-            std::cout << "num_buckets = " << num_buckets << std::endl;
-            std::cout << "using " << static_cast<double>(ram) / GB << " GB of RAM"
-                      << " (" << static_cast<double>(bitmap_taken_bytes) / GB
-                      << " GB occupied by the bitmap)" << std::endl;
-            std::cout << "using a peak of " << static_cast<double>(peak) / GB << " GB of disk space"
-                      << std::endl;
         }
 
         uint64_t run_identifier = clock_type::now().time_since_epoch().count();
@@ -99,11 +88,6 @@ struct external_memory_builder_single_phf {
                 std::vector<pairs_t> pairs_blocks;
                 map(keys, num_keys, pairs_blocks, tfm, config);
                 auto stop = clock_type::now();
-                if (config.verbose) {
-                    std::cout << " == map+sort " << tfm.get_num_pairs_files()
-                              << " files(s) took: " << to_microseconds(stop - start) / 1'000'000
-                              << " seconds" << std::endl;
-                }
                 start = clock_type::now();
                 buckets_t buckets = tfm.buckets(config);
                 merge(pairs_blocks, buckets, config.verbose);
@@ -112,20 +96,9 @@ struct external_memory_builder_single_phf {
                 num_non_empty_buckets = buckets.num_buckets();
                 tfm.remove_all_pairs_files();
                 stop = clock_type::now();
-                if (config.verbose) {
-                    std::cout << " == merge+check took: "
-                              << to_microseconds(stop - start) / 1'000'000 << " seconds"
-                              << std::endl;
-                    std::cout << " == max bucket size = " << int(tfm.max_bucket_size())
-                              << std::endl;
-                }
             }
             auto stop = clock_type::now();
             time.mapping_ordering_microseconds = to_microseconds(stop - start);
-            if (config.verbose) {
-                std::cout << " == map+ordering took " << time.mapping_ordering_microseconds
-                          << " seconds" << std::endl;
-            }
         } catch (...) {
             tfm.remove_all_pairs_files();
             tfm.remove_all_merge_files();
@@ -176,10 +149,6 @@ struct external_memory_builder_single_phf {
 
             auto stop = clock_type::now();
             time.searching_microseconds = to_microseconds(stop - start);
-            if (config.verbose) {
-                std::cout << " == search took " << time.searching_microseconds << " seconds"
-                          << std::endl;
-            }
         } catch (...) {
             tfm.remove_all_pairs_files();
             tfm.remove_all_merge_files();
@@ -692,8 +661,6 @@ private:
     template <typename Iterator>
     void map(Iterator keys, uint64_t num_keys, std::vector<pairs_t>& pairs_blocks,
              temporary_files_manager& tfm, build_configuration const& config) {
-        progress_logger logger(num_keys, " == processed ", " keys from input", config.verbose);
-
         uint64_t ram = config.ram;
         uint64_t ram_parallel_merge = 0;
         uint64_t num_threads = config.num_threads;
@@ -711,10 +678,8 @@ private:
                 auto hash = hasher_type::hash(key, m_seed);
                 bucket_id_type bucket_id = m_bucketer.bucket(hash.first());
                 writer.emplace_back(bucket_id, hash.second());
-                logger.log();
             }
             writer.flush();
-            logger.finalize();
         } catch (std::runtime_error const& e) { throw e; }
 
         auto tmp = tfm.pairs_blocks();

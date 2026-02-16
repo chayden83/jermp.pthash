@@ -4,7 +4,6 @@
 #include "search.hpp"
 
 #include "../utils/bucketers.hpp"
-#include "../utils/logger.hpp"
 #include "../utils/hasher.hpp"
 
 namespace pthash {
@@ -36,7 +35,7 @@ struct internal_memory_builder_single_phf {
                         hash_generator<RandomAccessIterator>(keys, actual_config.seed), num_keys,
                         actual_config);
                 } catch (seed_runtime_error const& error) {
-                    std::cout << "attempt " << attempt + 1 << " failed" << std::endl;
+		        // pass
                 }
             }
             throw seed_runtime_error();

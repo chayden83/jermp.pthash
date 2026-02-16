@@ -129,10 +129,6 @@ private:
     static build_configuration set_build_configuration(build_configuration const& config) {
         build_configuration build_config = config;
         if (config.minimal != Minimal) {
-            if (config.verbose) {
-                std::cout << "setting config.verbose = " << (Minimal ? "true" : "false")
-                          << std::endl;
-            }
             build_config.minimal = Minimal;
         }
         return build_config;
