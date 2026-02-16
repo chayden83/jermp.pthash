@@ -28,7 +28,8 @@ target_sources(vault.pthash PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_D
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/ranked_sequence.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/darray.hpp
   
-  #${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/cache_line_elias_fano.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/cache_line_elias_fano.hpp
+  
   #${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/rank9.hpp
   #${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/util.hpp
   #${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/endpoints_sequence.hpp
