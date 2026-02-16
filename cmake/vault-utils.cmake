@@ -1,5 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
+get_property(_VAULT_UTILS_ONCE_FLAG GLOBAL PROPERTY _VAULT_UTILS_ONCE_FLAG)
+
+if(_VAULT_UTILS_ONCE_FLAG)
+  return()
+endif()
+
 # Configure a project-specific option as a cache variable according to
 # the following precedence.
 #
