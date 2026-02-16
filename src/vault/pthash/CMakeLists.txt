@@ -26,9 +26,8 @@ target_sources(vault.pthash PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_D
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/rice_sequence.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/compact_vector.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/ranked_sequence.hpp
-  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/darray.hpp
-  
-  #${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/util.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/darray.hpp  
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/util.hpp
 )
 
 target_link_libraries(vault.pthash INTERFACE
