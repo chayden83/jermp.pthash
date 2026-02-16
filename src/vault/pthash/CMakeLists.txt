@@ -1,12 +1,5 @@
 find_package(Threads REQUIRED)
 
-FetchContent_Declare(vault.pthash.bits
-  URL https://github.com/chayden83/jermp.bits/archive/e52452d.tar.gz
-  URL_MD5 6117a1dcaa3f373f05c539a93d71aa4d
-)
-
-FetchContent_MakeAvailable(vault.pthash.bits)
-
 vault_add_header_only_library(vault.pthash)
 
 target_sources(vault.pthash PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_DIR}/include FILES
@@ -28,11 +21,22 @@ target_sources(vault.pthash PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_D
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/partitioned_phf.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/mm_file/mm_file.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/essentials/essentials.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/darray.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/cache_line_elias_fano.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/ranked_sequence.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/rice_sequence.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/elias_fano.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/rank9.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/bit_vector.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/util.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/compact_vector.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/endpoints_sequence.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/integer_codes.hpp
+  ${PROJECT_SOURCE_DIR}/include/vault/pthash/bits/sdc_sequence.hpp
 )
 
 target_link_libraries(vault.pthash INTERFACE
   Threads::Threads
-  vault::pthash.bits
 )
 
 vault_install_targets(
