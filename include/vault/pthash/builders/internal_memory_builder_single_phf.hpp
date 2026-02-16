@@ -75,42 +75,19 @@ struct internal_memory_builder_single_phf {
         m_num_buckets = num_buckets;
         m_bucketer.init(m_num_buckets);
 
-        if (config.verbose) {
-            std::cout << "lambda (avg. bucket size) = " << config.lambda << std::endl;
-            std::cout << "alpha (load factor) = " << config.alpha << std::endl;
-            std::cout << "num_keys = " << num_keys << std::endl;
-            std::cout << "table_size = " << table_size << std::endl;
-            std::cout << "num_buckets = " << num_buckets << std::endl;
-        }
-
         buckets_t buckets;
         {
             auto start = clock_type::now();
             std::vector<pairs_t> pairs_blocks;
             map(hashes, num_keys, pairs_blocks, config);
             auto elapsed = to_microseconds(clock_type::now() - start);
-            if (config.verbose) {
-                std::cout << " == map+sort took: " << elapsed / 1'000'000 << " seconds"
-                          << std::endl;
-            }
-
             start = clock_type::now();
             merge(pairs_blocks, buckets, config.verbose);
             elapsed = to_microseconds(clock_type::now() - start);
-            if (config.verbose) {
-                std::cout << " == merge+check took: " << elapsed / 1'000'000 << " seconds"
-                          << std::endl;
-            }
         }
 
         auto buckets_iterator = buckets.begin();
         time.mapping_ordering_microseconds = to_microseconds(clock_type::now() - start);
-        if (config.verbose) {
-            std::cout << " == mapping+ordering took "
-                      << time.mapping_ordering_microseconds / 1'000'000 << " seconds " << std::endl;
-            buckets.print_bucket_size_distribution();
-        }
-
         start = clock_type::now();
         {
             m_pilots.resize(num_buckets);
@@ -129,11 +106,6 @@ struct internal_memory_builder_single_phf {
             }
         }
         time.searching_microseconds = to_microseconds(clock_type::now() - start);
-        if (config.verbose) {
-            std::cout << " == search took " << time.searching_microseconds / 1'000'000 << " seconds"
-                      << std::endl;
-        }
-
         return time;
     }
 
@@ -322,13 +294,6 @@ private:
 
         void print_bucket_size_distribution() {
             uint64_t max_bucket_size = (*(begin())).size();
-            std::cout << " == max bucket size = " << max_bucket_size << std::endl;
-            for (int64_t i = max_bucket_size - 1; i >= 0; --i) {
-                uint64_t t = i + 1;
-                uint64_t num_buckets_of_size_t = m_buffers[i].size() / (t + 1);
-                std::cout << " == num_buckets of size " << t << " = " << num_buckets_of_size_t
-                          << std::endl;
-            }
         }
 
     private:
