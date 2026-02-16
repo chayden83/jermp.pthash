@@ -51,7 +51,6 @@ struct external_memory_builder_partitioned_phf {
         uint64_t bytes = num_partitions * sizeof(meta_partition);
         if (bytes >= config.ram) throw std::runtime_error("not enough RAM available");
 
-        progress_logger logger(num_keys, " == partitioned ", " keys", config.verbose);
         for (uint64_t i = 0; i != num_keys; ++i, ++keys) {
             auto const& key = *keys;
             auto hash = hasher_type::hash(key, m_seed);
@@ -62,9 +61,7 @@ struct external_memory_builder_partitioned_phf {
                 for (auto& partition : partitions) partition.flush();
                 bytes = num_partitions * sizeof(meta_partition);
             }
-            logger.log();
         }
-        logger.finalize();
 
         for (auto& partition : partitions) partition.release();
 

@@ -24,7 +24,6 @@ target_sources(vault.pthash PUBLIC FILE_SET HEADERS BASE_DIRS ${PROJECT_SOURCE_D
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/builders/util.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/builders/external_memory_builder_single_phf.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/pthash.hpp
-  ${PROJECT_SOURCE_DIR}/include/vault/pthash/utils/logger.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/utils/bucketers.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/utils/dense_encoders.hpp
   ${PROJECT_SOURCE_DIR}/include/vault/pthash/utils/util.hpp

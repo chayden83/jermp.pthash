@@ -4,8 +4,6 @@
 #include <unordered_map>
 
 #include "../utils/util.hpp"
-#include "../utils/logger.hpp"
-
 #include "vault/pthash/utils/util.hpp"
 
 namespace pthash {
@@ -189,11 +187,8 @@ private:
 
 template <typename Pairs, typename Merger>
 void merge_single_block(Pairs const& pairs, Merger& merger, bool verbose) {
-    progress_logger logger(pairs.size(), " == merged ", " pairs", verbose);
-
     uint64_t bucket_size = 1;
     uint64_t num_pairs = pairs.size();
-    logger.log();
     for (uint64_t i = 1; i != num_pairs; ++i) {
         if (pairs[i].bucket_id == pairs[i - 1].bucket_id) {
             if (PTHASH_LIKELY(pairs[i].payload != pairs[i - 1].payload)) {
@@ -206,13 +201,11 @@ void merge_single_block(Pairs const& pairs, Merger& merger, bool verbose) {
                        payload_iterator(pairs.begin() + i - bucket_size));
             bucket_size = 1;
         }
-        logger.log();
     }
 
     // add the last bucket
     merger.add(pairs[num_pairs - 1].bucket_id, bucket_size,
                payload_iterator(pairs.end() - bucket_size));
-    logger.finalize();
 }
 
 template <typename Pairs, typename Merger>
@@ -220,8 +213,6 @@ void merge_multiple_blocks(std::vector<Pairs> const& pairs_blocks, Merger& merge
     uint64_t num_pairs =
         std::accumulate(pairs_blocks.begin(), pairs_blocks.end(), static_cast<uint64_t>(0),
                         [](uint64_t sum, Pairs const& pairs) { return sum + pairs.size(); });
-    progress_logger logger(num_pairs, " == merged ", " pairs", verbose);
-
     // input iterators and heap
     std::vector<typename Pairs::const_iterator> iterators;
     std::vector<uint32_t> idx_heap;
@@ -269,7 +260,6 @@ void merge_multiple_blocks(std::vector<Pairs> const& pairs_blocks, Merger& merge
         bucket_id = pair.bucket_id;
         bucket_payloads.push_back(pair.payload);
         advance_heap_head();
-        logger.log();
     }
 
     // merge
@@ -288,12 +278,10 @@ void merge_multiple_blocks(std::vector<Pairs> const& pairs_blocks, Merger& merge
             bucket_payloads.clear();
             bucket_payloads.push_back(pair.payload);
         }
-        logger.log();
     }
 
     // add the last bucket
     merger.add(bucket_id, bucket_payloads.size(), bucket_payloads.begin());
-    logger.finalize();
 }
 
 template <typename Pairs, typename Merger>

@@ -1,11 +1,11 @@
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-if(DEFINED _VAULT_UTILS_ONCE_FLAG)
-  return()
-else()
-  set(_VAULT_UTILS_ONCE_FLAG ON CACHE BOOL "Vault utilities inclusion guard")
-  mark_as_advanced(_VAULT_UTILS_ONCE_FLAG)
-endif()
+# if(DEFINED _VAULT_UTILS_ONCE_FLAG)
+#   return()
+# else()
+#   set(_VAULT_UTILS_ONCE_FLAG ON CACHE BOOL "Vault utilities inclusion guard")
+#   mark_as_advanced(_VAULT_UTILS_ONCE_FLAG)
+# endif()
 
 # Configure a project-specific option as a cache variable according to
 # the following precedence.
