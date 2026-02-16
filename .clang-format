@@ -1,0 +1,70 @@
+Language: Cpp
+BasedOnStyle: LLVM
+
+# --- Core Layout ---
+ColumnLimit: 120
+IndentWidth: 2
+ContinuationIndentWidth: 2
+UseTab: Never
+Standard: Latest
+
+# --- Braces (Egyptian) ---
+BreakBeforeBraces: Attach
+InsertBraces: true
+AllowShortBlocksOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+
+# --- Indentation ---
+NamespaceIndentation: All
+AccessModifierOffset: -2
+
+# --- Alignment & Wrapping ---
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+AlignTrailingComments: true
+AlignAfterOpenBracket: BlockIndent
+BinPackParameters: false
+BinPackArguments: false
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# --- Templates & C++20 Constraints ---
+AlwaysBreakTemplateDeclarations: Yes
+RequiresClausePosition: OwnLine
+IndentRequiresClause: true
+
+# --- Constructor Initializers ---
+# Forces each initializer to its own line
+PackConstructorInitializers: Never
+# Places the colon and commas at the start of the line for vertical alignment
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerIndentWidth: 2
+# Ensures short lists do not collapse onto one line
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+AllowAllConstructorInitializersOnNextLine: true
+
+# --- Whitespace ---
+SpaceBeforeParens: ControlStatements
+SpaceAfterTemplateKeyword: true
+PointerAlignment: Left
+MaxEmptyLinesToKeep: 1
+SpaceBeforeAssignmentOperators: true
+SeparateDefinitionBlocks: Always
+
+# --- Includes ---
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex:           '^<[^/]+>$'
+    Priority:        10
+  - Regex:           '^<[^/]+/[^/]+>$'
+    Priority:        20
+  - Regex:           '^<[^/]+/[^/]+/[^/]+>$'
+    Priority:        30
+  - Regex:           '^<[^/]+/[^/]+/[^/]+/.+>$'
+    Priority:        40
+  - Regex:           '^"[^"/]+"'
+    Priority:        50
+  - Regex:           '^"[^"/]+/[^"/]+"'
+    Priority:        60
+  - Regex:           '^"[^"/]+/[^"/]+/[^"]+"'
+    Priority:        70
